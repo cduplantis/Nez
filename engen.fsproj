@@ -1,12 +1,25 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
-
+  <Import Project=".\CopyNativeLibs.targets" />
   <ItemGroup>
+    <Compile Include="Xplatform.fs" />
+    <Compile Include="EngineTypes.fs" />
+    <Compile Include="Game.fs" />
+    <!-- <Compile Include="Practice.fs" /> -->
     <Compile Include="Program.fs" />
   </ItemGroup>
-
+  <ItemGroup>
+    <ProjectReference Include=".\lib\SDL2-CS\SDL2-CS.Core.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="FSharp.Control.Reactive" Version="5.0.2" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="engen.dll.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
 </Project>

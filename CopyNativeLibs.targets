@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+	<Target Name="Runtime ID"  AfterTargets="Build">
+    	<Message Text="Runtime ID: $(RuntimeIdentifier)" Importance="high"/>
+	</Target>
+
+	<ItemGroup Condition="$(RuntimeIdentifier.Contains('win'))">
+		<Content Include="..\nativelibs\windows\FAudio.dll">
+			<Link>%(RecursiveDir)%(Filename)%(Extension)</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\nativelibs\windows\Refresh.dll">
+			<Link>%(RecursiveDir)%(Filename)%(Extension)</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\nativelibs\windows\SDL2.dll">
+			<Link>%(RecursiveDir)%(Filename)%(Extension)</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+	</ItemGroup>
+	<ItemGroup Condition="('$(RuntimeIdentifier)' == '' AND $([MSBuild]::IsOSPlatform('Linux'))) OR $(RuntimeIdentifier.Contains('linux'))">
+		<Content Include="..\nativelibs\lib64\libFAudio.*">
+			<Link>%(RecursiveDir)%(Filename)%(Extension)</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\nativelibs\lib64\libRefresh.*">
+			<Link>%(RecursiveDir)%(Filename)%(Extension)</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="..\nativelibs\lib64\libSDL2-2.0.*">
+			<Link>%(RecursiveDir)%(Filename)%(Extension)</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+	</ItemGroup>
+	<ItemGroup Condition="$(RuntimeIdentifier.Contains('osx'))">
+		<Content Include="..\nativelibs\osx\**\*.*" >
+			<Link>%(RecursiveDir)%(Filename)%(Extension)</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+	</ItemGroup>
+
+</Project>
